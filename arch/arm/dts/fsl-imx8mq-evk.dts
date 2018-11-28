@@ -31,8 +31,8 @@
 	};
 
 	chosen {
-		bootargs = "console=ttymxc0,115200 earlycon=ec_imx6q,0x30860000,115200";
-		stdout-path = &uart1;
+		bootargs = "console=ttymxc1,115200 earlycon=ec_imx6q,0x30860000,115200";
+		stdout-path = &uart3;
 	};
 
 	regulators {
@@ -166,13 +166,20 @@
 			>;
 		};
 
+		pinctrl_uart2: uart2grp {
+			fsl,pins = <
+				MX8MQ_IOMUXC_UART2_RXD_UART2_DCE_RX		0x79
+				MX8MQ_IOMUXC_UART2_TXD_UART2_DCE_TX		0x79
+			>;
+		};
+		
 		pinctrl_uart3: uart3grp {
 			fsl,pins = <
 				MX8MQ_IOMUXC_UART3_TXD_UART3_DCE_TX		0x79
 				MX8MQ_IOMUXC_UART3_RXD_UART3_DCE_RX		0x79
-				MX8MQ_IOMUXC_ECSPI1_MISO_UART3_DCE_CTS_B	0x79
-				MX8MQ_IOMUXC_ECSPI1_SS0_UART3_DCE_RTS_B		0x79
-				MX8MQ_IOMUXC_NAND_CLE_GPIO3_IO5			0x19
+				//MX8MQ_IOMUXC_ECSPI1_MISO_UART3_DCE_CTS_B	0x79
+				//MX8MQ_IOMUXC_ECSPI1_SS0_UART3_DCE_RTS_B		0x79
+				//MX8MQ_IOMUXC_NAND_CLE_GPIO3_IO5			0x19
 			>;
 		};
 
@@ -456,6 +463,14 @@
 	status = "okay";
 };
 
+&uart2 { /* habey console */
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart2>;
+	assigned-clocks = <&clk IMX8MQ_CLK_UART2_SRC>;
+	assigned-clock-parents = <&clk IMX8MQ_CLK_25M>;
+	status = "okay";
+};
+
 &lcdif {
 	status = "okay";
 	disp-dev = "mipi_dsi_northwest";
@@ -518,8 +533,8 @@
 	pinctrl-0 = <&pinctrl_uart3>;
 	assigned-clocks = <&clk IMX8MQ_CLK_UART3_SRC>;
 	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_80M>;
-	fsl,uart-has-rtscts;
-	resets = <&modem_reset>;
+	//fsl,uart-has-rtscts;
+	//resets = <&modem_reset>;
 	status = "okay";
 };
 
