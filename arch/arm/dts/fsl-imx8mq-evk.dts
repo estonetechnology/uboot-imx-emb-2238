@@ -30,10 +30,16 @@
 		bcmdhd_nv = "/lib/firmware/bcm/1CX_BCM4356/bcmdhd.cal";
 	};
 
+	#if 0
 	chosen {
 		bootargs = "console=ttymxc1,115200 earlycon=ec_imx6q,0x30860000,115200";
 		stdout-path = &uart3;
 	};
+	#endif
+    chosen {
+        bootargs = "console=ttymxc1,115200 earlycon=ec_imx6q,0x30890000,115200";
+        stdout-path = &uart2;
+    };
 
 	regulators {
 		compatible = "simple-bus";
