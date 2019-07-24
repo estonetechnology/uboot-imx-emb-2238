@@ -66,7 +66,8 @@ int board_mmc_getcd(struct mmc *mmc)
 		ret = 1;
 		break;
 	case USDHC2_BASE_ADDR:
-		ret = !gpio_get_value(USDHC2_CD_GPIO);
+		//ret = !gpio_get_value(USDHC2_CD_GPIO);
+		ret = 1;
 		return ret;
 	}
 
@@ -136,13 +137,16 @@ int board_mmc_init(bd_t *bis)
 			gpio_direction_output(USDHC1_PWR_GPIO, 1);
 			break;
 		case 1:
+			//sd card
 			usdhc_cfg[1].sdhc_clk = mxc_get_clock(USDHC2_CLK_ROOT);
 			imx_iomux_v3_setup_multiple_pads(
 				usdhc2_pads, ARRAY_SIZE(usdhc2_pads));
 			gpio_request(USDHC2_PWR_GPIO, "usdhc2_reset");
-			gpio_direction_output(USDHC2_PWR_GPIO, 0);
-			udelay(500);
+			//gpio_direction_output(USDHC2_PWR_GPIO, 0);
+			//udelay(500);
 			gpio_direction_output(USDHC2_PWR_GPIO, 1);
+			udelay(500);
+			gpio_direction_output(USDHC2_PWR_GPIO, 0);
 			break;
 		default:
 			printf("Warning: you configured more USDHC controllers"
