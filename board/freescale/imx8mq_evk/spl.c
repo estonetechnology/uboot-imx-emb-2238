@@ -54,6 +54,7 @@ struct i2c_pads_info i2c_pad_info1 = {
 #define USDHC2_CD_GPIO	IMX_GPIO_NR(2, 12)
 #define USDHC1_PWR_GPIO IMX_GPIO_NR(2, 10)
 #define USDHC2_PWR_GPIO IMX_GPIO_NR(2, 19)
+#define RUNLED_PWR_GPIO IMX_GPIO_NR(3, 4)
 
 int board_mmc_getcd(struct mmc *mmc)
 {
@@ -99,6 +100,9 @@ static iomux_v3_cfg_t const usdhc2_pads[] = {
 	IMX8MQ_PAD_SD2_DATA3__USDHC2_DATA3 | MUX_PAD_CTRL(USDHC_PAD_CTRL), /* 0xd6 */
 	IMX8MQ_PAD_SD2_CD_B__GPIO2_IO12 | MUX_PAD_CTRL(USDHC_GPIO_PAD_CTRL),
 	IMX8MQ_PAD_SD2_RESET_B__GPIO2_IO19 | MUX_PAD_CTRL(USDHC_GPIO_PAD_CTRL),
+
+	//run_led
+	IMX8MQ_PAD_NAND_CE3_B__GPIO3_IO4 | MUX_PAD_CTRL(USDHC_GPIO_PAD_CTRL),
 };
 
 static struct fsl_esdhc_cfg usdhc_cfg[2] = {
@@ -115,6 +119,11 @@ int board_mmc_init(bd_t *bis)
 	 * mmc0                    USDHC1
 	 * mmc1                    USDHC2
 	 */
+
+	//run_led
+	gpio_request(RUNLED_PWR_GPIO, "runled_pwr");
+	gpio_direction_output(RUNLED_PWR_GPIO, 1);
+
 	for (i = 0; i < CONFIG_SYS_FSL_USDHC_NUM; i++) {
 		switch (i) {
 		case 0:
