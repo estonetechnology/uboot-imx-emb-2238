@@ -31,9 +31,15 @@ void spl_dram_init(void)
 {
 	/* ddr init */
 	if ((get_cpu_rev() & 0xfff) == CHIP_REV_2_1)
-		ddr_init(&dram_timing);
+	{
+		printf("dram_timing.. \n");	
+		//ddr_init(&dram_timing);
+	}	
 	else
+	{
+		printf("dram_timing_b0.. \n");	
 		ddr_init(&dram_timing_b0);
+	}	
 }
 
 #define I2C_PAD_CTRL	(PAD_CTL_DSE6 | PAD_CTL_HYS | PAD_CTL_PUE)
