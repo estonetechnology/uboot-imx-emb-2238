@@ -30,6 +30,7 @@ extern struct dram_timing_info dram_timing_b0;
 void spl_dram_init(void)
 {
 	/* ddr init */
+	#if 0
 	if ((get_cpu_rev() & 0xfff) == CHIP_REV_2_1)
 	{
 		printf("dram_timing.. \n");	
@@ -40,6 +41,11 @@ void spl_dram_init(void)
 		printf("dram_timing_b0.. \n");	
 		ddr_init(&dram_timing_b0);
 	}	
+	#endif
+	get_cpu_rev();
+    printf("dram_timing_b0.. \n");  
+    ddr_init(&dram_timing_b0);
+
 }
 
 #define I2C_PAD_CTRL	(PAD_CTL_DSE6 | PAD_CTL_HYS | PAD_CTL_PUE)
@@ -211,13 +217,13 @@ int power_init_board(void)
 
 void spl_board_init(void)
 {
-#ifndef CONFIG_SPL_USB_SDP_SUPPORT
+//#ifndef CONFIG_SPL_USB_SDP_SUPPORT
 	/* Serial download mode */
 	if (is_usb_boot()) {
 		puts("Back to ROM, SDP\n");
 		restore_boot_params();
 	}
-#endif
+//#endif
 
 	init_usb_clk();
 

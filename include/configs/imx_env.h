@@ -19,15 +19,18 @@
 		"\0" \
 	"kboot="MFG_BOOT_CMD"\0"\
 	"bootcmd_mfg=run mfgtool_args;" \
+	"booti ${loadaddr} ${initrd_addr} ${fdt_addr}; \0" \
+/*
         "if iminfo ${initrd_addr}; then " \
-            "if test ${tee} = yes; then " \
+            "if test ${tee} = no; then " \
                 "bootm ${tee_addr} ${initrd_addr} ${fdt_addr}; " \
             "else " \
-                MFG_BOOT_CMD "${loadaddr} ${initrd_addr} ${fdt_addr}; " \
+                "booti ${loadaddr} ${initrd_addr} ${fdt_addr}; " \
             "fi; " \
         "else " \
             "echo \"Run fastboot ...\"; fastboot 0; "  \
         "fi;\0" \
+*/	
 
 #endif
 
