@@ -43,7 +43,7 @@ struct i2c_pads_info i2c_pad_info1 = {
 	},
 };
 
-#define USDHC2_CD_GPIO	IMX_GPIO_NR(2, 18)
+#define USDHC2_CD_GPIO	IMX_GPIO_NR(2, 12)
 #define USDHC2_PWR_GPIO IMX_GPIO_NR(2, 19)
 #define USDHC1_PWR_GPIO IMX_GPIO_NR(2, 10)
 
@@ -80,7 +80,7 @@ static iomux_v3_cfg_t const usdhc2_pads[] = {
  * in u-boot we mux the pin to GPIO when doing board_mmc_getcd.
  */
 static iomux_v3_cfg_t const usdhc2_cd_pad =
-	IMX8MM_PAD_SD2_DATA3_GPIO2_IO18 | MUX_PAD_CTRL(USDHC_GPIO_PAD_CTRL);
+	IMX8MM_PAD_SD2_CD_B_GPIO2_IO12 | MUX_PAD_CTRL(USDHC_GPIO_PAD_CTRL);
 
 static iomux_v3_cfg_t const usdhc2_dat3_pad =
 	IMX8MM_PAD_SD2_DATA3_USDHC2_DATA3 |

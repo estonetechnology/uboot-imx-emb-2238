@@ -408,6 +408,15 @@ int board_ehci_usb_phy_mode(struct udevice *dev)
 
 #endif
 
+static void wlan_gpio_init(void)
+{
+	gpio_request(IMX_GPIO_NR(4, 27), "BT RST");
+	gpio_direction_output(IMX_GPIO_NR(4, 27), 1);
+
+	gpio_request(IMX_GPIO_NR(3, 3), "WL REG_ON");
+	gpio_direction_output(IMX_GPIO_NR(3, 3), 0);
+}
+
 int board_init(void)
 {
 #ifdef CONFIG_USB_TCPC
@@ -426,6 +435,7 @@ int board_init(void)
 	board_qspi_init();
 #endif
 
+	wlan_gpio_init();
 	return 0;
 }
 
