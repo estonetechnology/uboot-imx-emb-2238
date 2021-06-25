@@ -410,6 +410,9 @@ int board_ehci_usb_phy_mode(struct udevice *dev)
 
 static void wlan_gpio_init(void)
 {
+	gpio_request(IMX_GPIO_NR(1, 1), "audio RST");
+        gpio_direction_output(IMX_GPIO_NR(1, 1), 1);
+
 	gpio_request(IMX_GPIO_NR(4, 27), "BT RST");
 	gpio_direction_output(IMX_GPIO_NR(4, 27), 1);
 
