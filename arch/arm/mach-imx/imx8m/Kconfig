@@ -72,6 +72,12 @@ config TARGET_IMX8MM_IOB4607
         select SUPPORT_SPL
         select IMX8M_LPDDR4
 
+config TARGET_IMX8MM_POE2237
+        bool "imx8mm LPDDR4 POE2237 board"
+        select IMX8MM
+        select SUPPORT_SPL
+        select IMX8M_LPDDR4
+
 config TARGET_IMX8MM_DDR4_EVK
 	bool "imx8mm DDR4 EVK board"
 	select IMX8MM
@@ -91,5 +97,6 @@ source "board/freescale/imx8mm_evk/Kconfig"
 source "board/freescale/imx8mm_val/Kconfig"
 source "board/freescale/imx8mm_som2237/Kconfig"
 source "board/freescale/imx8mm_iob4607/Kconfig"
+source "board/freescale/imx8mm_poe2237/Kconfig"
 
 endif
