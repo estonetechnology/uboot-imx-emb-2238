@@ -173,6 +173,20 @@
 	"jack = this is test \0" \
 	"mmcroot= /dev/mmcblk0p2 rootwait rw\0" \
 	"mmcautodetect=yes\0" \
+	"bootdir=/boot\0"	\
+	"m4_mmcpart=2\0" \
+	"m4_addr=0x7e0000\0" \
+	"m4_bin=hello_world.bin\0" \
+	"use_m4=no\0" \
+	"loadm4bin=load mmc ${mmcdev}:${m4_mmcpart} ${m4_addr} ${bootdir}/${m4_bin}\0" \
+	"runm4bin=" \
+		"if test ${m4_addr} = 0x7e0000; then " \
+			"echo Booting M4 from TCM; " \
+		"else " \
+			"echo Booting M4 from DRAM; " \
+			"dcache flush; " \
+		"fi; " \
+		"bootaux ${m4_addr};\0" \
 	"mmcargs=setenv bootargs ${jh_clk} console=${console} root=${mmcroot}\0 " \
 	"loadbootscript=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${script};\0" \
 	"bootscript=echo Running bootscript from mmc ...; " \
@@ -213,6 +227,9 @@
 
 #define CONFIG_BOOTCOMMAND \
 	   "mmc dev ${mmcdev}; if mmc rescan; then " \
+		   "if test ${use_m4} = yes && run loadm4bin; then " \
+			   "run runm4bin; " \
+		   "fi; " \
 		   "if run loadbootscript; then " \
 			   "run bootscript; " \
 		   "else " \
