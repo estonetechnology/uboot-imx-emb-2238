@@ -88,8 +88,8 @@ static iomux_v3_cfg_t const usdhc2_dat3_pad =
 
 
 static struct fsl_esdhc_cfg usdhc_cfg[2] = {
-	{USDHC1_BASE_ADDR, 0, 1},
 	{USDHC2_BASE_ADDR, 0, 1},
+	{USDHC1_BASE_ADDR, 0, 1},
 
 };
 
@@ -102,25 +102,28 @@ int board_mmc_init(bd_t *bis)
 	 * mmc0                    USDHC1
 	 * mmc1                    USDHC2
 	 */
+	printf("board_mmc_init............... %d \n", CONFIG_SYS_FSL_USDHC_NUM);
 	for (i = 0; i < CONFIG_SYS_FSL_USDHC_NUM; i++) {
 		switch (i) {
 		case 0:
-			usdhc_cfg[0].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
+			printf("board_mmc_init............... %d \n", i);
+			usdhc_cfg[0].sdhc_clk = mxc_get_clock(MXC_ESDHC2_CLK);
 			imx_iomux_v3_setup_multiple_pads(
-				usdhc1_pads, ARRAY_SIZE(usdhc1_pads));
-			gpio_request(USDHC1_PWR_GPIO, "usdhc1_reset");
-			gpio_direction_output(USDHC1_PWR_GPIO, 0);
-			udelay(500);
-			gpio_direction_output(USDHC1_PWR_GPIO, 1);
-			break;
-		case 1:
-			usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC2_CLK);
-			imx_iomux_v3_setup_multiple_pads(
-				usdhc2_pads, ARRAY_SIZE(usdhc2_pads));
+					usdhc2_pads, ARRAY_SIZE(usdhc2_pads));
 			gpio_request(USDHC2_PWR_GPIO, "usdhc2_reset");
 			gpio_direction_output(USDHC2_PWR_GPIO, 0);
 			udelay(500);
 			gpio_direction_output(USDHC2_PWR_GPIO, 1);
+			break;
+		case 1:
+			printf("board_mmc_init............... %d \n", i);
+			usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
+			imx_iomux_v3_setup_multiple_pads(
+					usdhc1_pads, ARRAY_SIZE(usdhc1_pads));
+			gpio_request(USDHC1_PWR_GPIO, "usdhc1_reset");
+			gpio_direction_output(USDHC1_PWR_GPIO, 0);
+			udelay(500);
+			gpio_direction_output(USDHC1_PWR_GPIO, 1);
 			break;
 		default:
 			printf("Warning: you configured more USDHC controllers"
