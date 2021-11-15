@@ -177,7 +177,7 @@
 	"m4_mmcpart=2\0" \
 	"m4_addr=0x7e0000\0" \
 	"m4_bin=hello_world.bin\0" \
-	"use_m4=no\0" \
+	"use_m4=yes\0" \
 	"loadm4bin=load mmc ${mmcdev}:${m4_mmcpart} ${m4_addr} ${bootdir}/${m4_bin}\0" \
 	"runm4bin=" \
 		"if test ${m4_addr} = 0x7e0000; then " \
