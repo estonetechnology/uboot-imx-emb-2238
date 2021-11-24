@@ -14,11 +14,11 @@
 
 /dts-v1/;
 
-#include "est-imx8mm-v2.dtsi"
+#include "fsl-imx8mm.dtsi"
 
 / {
-	model = "FSL i.MX8MM POE 2237 board";
-	compatible = "fsl,imx8mm-poe2237", "fsl,imx8mm";
+	model = "FSL i.MX8MM EMB2237 board";
+	compatible = "fsl,imx8mm-emb2237", "fsl,imx8mm";
 
 	chosen {
 		bootargs = "console=ttymxc1,115200 earlycon=ec_imx6q,0x30890000,115200";
@@ -458,11 +458,14 @@
 };
 
 &usdhc2 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-	bus-width = <4>;
-	//vmmc-supply = <&reg_usdhc2_vmmc>;
-	status = "okay";
+        pinctrl-names = "default", "state_100mhz", "state_200mhz";
+        pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+        pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
+        pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
+        bus-width = <4>;
+        non-removable;
+        vmmc-supply = <&reg_usdhc2_vmmc>;
+        status = "okay";
 };
 
 &usdhc1 {
