@@ -180,7 +180,7 @@ static iomux_v3_cfg_t const fec1_rst_pads[] = {
 };
 
 static iomux_v3_cfg_t const lt9211_rst_pads[] = {
-        IMX8MM_PAD_GPIO1_IO09_GPIO1_IO9 | MUX_PAD_CTRL(NO_PAD_CTRL),
+       IMX8MM_PAD_GPIO1_IO06_GPIO1_IO6 | MUX_PAD_CTRL(NO_PAD_CTRL),
 };
 
 static void setup_iomux_fec(void)
@@ -199,7 +199,7 @@ static void lt9211_rst(void)
         imx_iomux_v3_setup_multiple_pads(lt9211_rst_pads,
                                          ARRAY_SIZE(lt9211_rst_pads));
 
-        gpio_request(FEC_RST_PAD, "lt9211_rst");
+        gpio_request(LT9211_RST_PAD, "lt9211_rst");
         gpio_direction_output(LT9211_RST_PAD, 0);
         mdelay(50);
 }
