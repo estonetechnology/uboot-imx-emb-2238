@@ -470,6 +470,7 @@ dtb-$(CONFIG_ARCH_IMX8M) += fsl-imx8mq-evk.dtb \
 		fsl-imx8mm-ddr4-val.dtb \
 		fsl-imx8mm-evk.dtb \
 		est-imx8mm-bis2237.dtb \
+		est-imx8mm-ppc4210.dtb \
 		est-imx8mm-som2237.dtb \
 		est-imx8mm-iob4607.dtb \
 		est-imx8mm-poe2237.dtb \
