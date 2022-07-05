@@ -418,6 +418,13 @@ static void wlan_gpio_init(void)
 
 	gpio_request(IMX_GPIO_NR(3, 3), "WL REG_ON");
 	gpio_direction_output(IMX_GPIO_NR(3, 3), 0);
+
+	gpio_request(IMX_GPIO_NR(3, 21), "pcie en");
+	gpio_direction_output(IMX_GPIO_NR(3, 21), 1);
+
+	gpio_request(IMX_GPIO_NR(4, 21), "pcie rst");
+	gpio_direction_output(IMX_GPIO_NR(4, 21), 0);
+
 }
 
 int board_init(void)
